@@ -98,7 +98,7 @@ export const addRating = async(id, rating) => {
         const { data } = await customAxios.post(`/movie/${id}/${rating}`);
         return data;
     } catch (error) {
-        toast.error(`Oops, an error occurred! ${error}`);
+        console.log(error);
     };
 };
 
