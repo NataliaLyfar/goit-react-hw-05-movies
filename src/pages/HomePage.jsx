@@ -20,6 +20,7 @@ const [page, setPage] = useState(1);
 useEffect(() => {
     (async () => {
       API.searchParams.page = page;
+      if(genres.length){
         try {
             const {...data} = await API.getTrends(API.searchParams);
             const newMovies = dataMovie(data.results, genres);
@@ -32,6 +33,7 @@ useEffect(() => {
          } catch (error) {
            toast.info(`Something went wrong ${error}`);
          };
+      };
     })();
 },[genres, page]);
 

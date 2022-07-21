@@ -13,7 +13,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/goit-react-hw-05-movies/">
     <GlobalStyle />
     <ThemeProvider theme={theme}>
       <ToastContainer autoClose={3000} />

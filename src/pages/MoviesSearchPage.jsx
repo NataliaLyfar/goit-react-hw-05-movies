@@ -76,10 +76,11 @@ useEffect(() => {
 useEffect(() => {
   (async () => {
     try {
-      const {...data} = await API.getMovieTrailer(popularId);
-      setTrailer(data.results[0].key);
+      const data = await API.getMovieTrailer(popularId);
+      if(data?.results){
+      setTrailer(data.results[0]);}
     } catch (error) {
-      console.log(error);
+
     };
   })();
 }, [popularId]);
@@ -104,9 +105,9 @@ return (
         {movies.length > 0 && query.length > 0 && <MoviesGallery movies={movies} />}
         {movies.length >= 20 && <Button onClick={handleLoadMore}>Load more</Button>}    
         {movies.length === 0 && trailer &&
-          <TrailerWrapper>
+          <TrailerWrapper >
             <Iframe trailer={trailer}
-              url={`https://www.youtube.com/embed/${trailer}`}
+              url={`https://www.youtube.com/embed/${trailer.key}`}
               width="100%"
               height="600px"
               allowFullScreen

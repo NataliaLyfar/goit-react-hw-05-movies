@@ -53,12 +53,8 @@ export const getMovieDetails = async (id) => {
 };
 
 export const getMovieTrailer = async (id) => {
-    try {
         const {data} = await customAxios.get(`/movie/${id}/videos`);
         return data;
-    } catch (error) {
-        console.log(error);
-    };
 };
 
 export const getMovieCast = async (id) => {
