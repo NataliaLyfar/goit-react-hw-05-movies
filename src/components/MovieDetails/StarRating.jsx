@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useState } from 'react';
 import { Rating } from 'react-simple-star-rating'
-import * as API from 'services/movieApi';
+import * as API from 'api';
 
 export const StarRating = ({id, value}) => {
 const [rating, setRating] = useState(null); 
@@ -15,7 +15,6 @@ const addRating = async (value) => {
   try {
     await API.addRating(id,value);
   } catch (error) {
-    console.log(error);
   };
 };
 

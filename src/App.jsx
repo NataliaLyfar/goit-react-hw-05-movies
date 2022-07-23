@@ -1,43 +1,32 @@
-import { Routes, Route } from 'react-router-dom';
-import { lazy, useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
-import * as API from "services/movieApi";
-import { MainLayout } from 'components/MainLayout';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { lazy } from 'react';
+import { MainLayout } from 'layout';
 
 
-const Home = lazy(() => import("pages/HomePage.jsx"));
-const MovieInDetails = lazy(() => import("pages/MovieDetailsPage.jsx"));
-const MoviesSearch = lazy(() => import("pages/MoviesSearchPage.jsx"));
-const Cast = lazy(() => import("components/Casts/Casts.jsx"));
-const Review = lazy(() => import("components/Reviews/Reviews.jsx"));
-const Trailer = lazy(() => import("components/Trailers/Trailers.jsx"));
-const SimilarMovie = lazy(() => import("components/SimilarMovie/SimilarMovie.jsx"));
+const Home = lazy(() => import("pages/HomePage"));
+const MovieInDetails = lazy(() => import("pages/MovieInDetails/MovieInDetailsPage"));
+const Cast = lazy(() => import("pages/MovieInDetails/CastView"));
+const Review = lazy(() => import("pages/MovieInDetails/ReviewView"));
+const Trailer = lazy(() => import("pages/MovieInDetails/TrailerView"));
+const SimilarMovie = lazy(() => import("pages/MovieInDetails/SimilarView"));
+const MoviesSearch = lazy(() => import("pages/MoviesSearchPage"));
+
 
 export const App = () => {
-  const [genres, setGenres] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const {...data} = await API.getGenres();
-        setGenres(data.genres);
-      } catch (error) {
-        toast.info(`Something went wrong ${error}`);
-      };
-    })();
-  }, []);
-
   return (
       <Routes>
         <Route path='/' element={<MainLayout />}>
-          <Route index element={<Home genres={genres}/>} />
+          <Route index element={<Navigate to="home"/>} />
+          <Route path="home" element={<Home/>} />
           <Route path='movies/:movieId/*' element={<MovieInDetails/>}>
+          <Route index element={<SimilarMovie />} />
             <Route path="cast" element={<Cast />} />
             <Route path="reviews" element={<Review />} />
             <Route path="trailer" element={<Trailer />} />
             <Route path="similar" element={<SimilarMovie />} />
           </Route>
-          <Route path='movies' element={<MoviesSearch genres={genres}/>}/>
+          <Route path='movies' exact element={<MoviesSearch/>}/>
+          <Route path="*" element={<Navigate to="home" />} />
         </Route>
       </Routes>
   );

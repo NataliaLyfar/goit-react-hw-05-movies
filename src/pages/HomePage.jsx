@@ -1,39 +1,50 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { toast } from 'react-toastify';
+import { ThreeDots } from  'react-loader-spinner';
 import { TiArrowSync } from "react-icons/ti";
-import * as API from 'services/movieApi';
-import { dataMovie } from "services/dataMovie";
-import { MoviesGallery } from "components/Gallery";
+import * as API from 'api';
+import { dataMovie } from "utils/dataMovie";
+import { MoviesGallery } from "components/MoviesGallery";
 import { Container } from "components/ui/Container";
 import { Section } from "components/ui/Section";
-import { Button } from "components/button/Button";
+import { Button } from "components/ui/buttons";
 import { Slider } from "components/Swiper";
-import { Title } from "components/Title";
+import { Title } from "components/ui/Title";
 
 
-const Home = ({genres}) => {
+const Home = () => {
 const [movies, setMovies] = useState([]);
 const [swipeMovies, setSwipeMovies] = useState([]);
 const [page, setPage] = useState(1);
+const [genres, setGenres] = useState([]);
+const [isLoading, setIsLoading] = useState(false);
 
 useEffect(() => {
-    (async () => {
-      API.searchParams.page = page;
-      if(genres.length){
-        try {
-            const {...data} = await API.getTrends(API.searchParams);
-            const newMovies = dataMovie(data.results, genres);
+  (async () => {
+    try {
+      const {genres} = await API.getGenres();
+      setGenres(genres);
+    } catch (error) {
+      toast.info(`Something went wrong ${error}`);
+    };
+  })();
+}, []);
+API.searchParams.page = page;
+useEffect(() => {
+    (async () => {      
+        try {           
+            setIsLoading(true);
+            const {results} = await API.getTrends(API.searchParams);
+            const newMovies = dataMovie(results, genres);
             const {...swipeData} = await API.getUpcoming();
             setSwipeMovies([...swipeData.results]);
-            if(API.searchParams.page === 1){
+            if(page === 1){
               setMovies([...newMovies]);
             } else {
-              setMovies(prevState => [...prevState,...newMovies]);};         
-         } catch (error) {
-           toast.info(`Something went wrong ${error}`);
-         };
-      };
+              setMovies((prevState) => [...prevState,...newMovies]);}       
+            } catch (error) {
+              toast.info(`Something went wrong ${error}`);
+            } finally {setIsLoading(false)};
     })();
 },[genres, page]);
 
@@ -42,28 +53,26 @@ const handleLoadMore = () => {
 };
 
 return (
-    <Section>
-      <Container>
-        <Title>Upcoming</Title>
-          {swipeMovies.length !== 0 && <Slider movies={swipeMovies}/>}
-        <Title>Trending</Title>
-          {movies.length !== 0 && <MoviesGallery movies={movies}/>}
-          {movies.length >= 20 && 
-          <Button onClick={handleLoadMore} icon={<TiArrowSync/>}>
-            Load more
-          </Button>}
-      </Container>
+  <Container>
+    {isLoading && <ThreeDots color="#eead71" height={60} width={60} />}
+    <Section>      
+      {swipeMovies.length !== 0 && (
+        <>
+          <Title>Upcoming</Title>
+          <Slider movies={swipeMovies}/>
+        </>)}
+      {movies.length !== 0 &&(
+        <>
+          <Title>Trending</Title>
+          <MoviesGallery movies={movies}/>
+        </>)}
+      {!isLoading && movies.length >= 20 && 
+        <Button onClick={handleLoadMore} icon={<TiArrowSync/>}>
+          Load more
+        </Button>}
     </Section>
+  </Container>
   );
-};
-
-Home.propTypes = {
-  genresList: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-    })
-  ),
 };
 
 export default Home;

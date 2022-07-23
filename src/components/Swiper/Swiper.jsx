@@ -44,10 +44,7 @@ Swiper.propTypes = {
     PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    posterPath: PropTypes.string,
-    genres: PropTypes.string,
-    rating: PropTypes.number,
-    year: PropTypes.number,
+    poster_path: PropTypes.string,
     })
   ),
 };

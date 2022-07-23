@@ -5,7 +5,6 @@ import {NavLink, Outlet} from 'react-router-dom';
 import { breakpoints } from 'styleConfig/breakpoints';
 import NoPoster from 'asset/comingSoon.jpg';
 import { StarRating } from './StarRating';
-import { Oval } from  'react-loader-spinner';
 
 
 const Wrapper = styled.div`
@@ -101,14 +100,29 @@ font-weight: ${p => p.theme.fontWeights.bold};
     padding: ${p => p.theme.space[4]}px;
     font-size: ${p => p.theme.fontSizes.xl};
   };
-  &:hover, &:focus, &:active {
+  &.active {
+    color: ${p => p.theme.colors.accent};
+    cursor: pointer;
+  };
+  &:hover:not(.active), &:focus:not(.active){
     color: ${p => p.theme.colors.accent};
     cursor: pointer;
   };
 `;
 
 export const MovieDetails = ({
-  id, posterPath, tagline, overview, country, title, year, rating, genres, runtime, location}) => {
+  id,
+  posterPath, 
+  tagline, 
+  overview, 
+  country, 
+  title, 
+  year, 
+  rating, 
+  genres, 
+  runtime, 
+  location
+}) => {
 
     return (
     <>
@@ -161,7 +175,7 @@ export const MovieDetails = ({
           <StyledLink to="similar" state={{from: location}}>Similar</StyledLink>
         </li>
       </ListExtraData>
-      <Suspense fallback={<Oval color="#D8A63D" height={80} width={80}/>}>
+      <Suspense>
         <Outlet />
       </Suspense>
     </>

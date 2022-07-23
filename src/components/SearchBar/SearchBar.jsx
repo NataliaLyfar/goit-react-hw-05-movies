@@ -1,8 +1,8 @@
-import { useState} from "react";
+import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { GoSearch } from "react-icons/go";
-import { toast } from 'react-toastify';
+
 
 const SearchForm = styled.form`
 margin: 0 auto ${p => p.theme.space[3]}px;
@@ -48,31 +48,24 @@ outline: none;
 `;
 
 
-export const SearchBar = ({onSearch}) => {
-const [query, setQuery] = useState([]);
+export const SearchBar = ({ onSearch }) => {
+const {register, handleSubmit, resetField} = useForm();
 
-const handleChange = e => setQuery(e.target.value.toLowerCase());
-
-const handleSubmit = (e) => {
-  e.preventDefault();
-  if(!query){
-    toast('There is nothing to search!');
-  };
-  onSearch(query);
-  setQuery('');
+const onSubmit = data => {
+  onSearch(data.query);
+  resetField('query');
 };
 
 return (
-    <SearchForm onSubmit={handleSubmit} >
+    <SearchForm onSubmit={handleSubmit(onSubmit)} >
         <SearchInput
         type="text"
         placeholder="Search for movie"
-        value={query}
-        onChange={handleChange}
+        {...register("query")}
         autoComplete="off"
         autoFocus
         />
-        <SearchButton type="submit"><GoSearch/></SearchButton>
+        <SearchButton type="submit"><GoSearch /></SearchButton>
     </SearchForm>
   );
 };
