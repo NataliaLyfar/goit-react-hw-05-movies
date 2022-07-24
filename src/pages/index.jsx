@@ -12,7 +12,7 @@ import { Slider } from "components/Swiper";
 import { Title } from "components/ui/Title";
 
 
-const Home = () => {
+const HomePage = () => {
 const [movies, setMovies] = useState([]);
 const [swipeMovies, setSwipeMovies] = useState([]);
 const [page, setPage] = useState(1);
@@ -29,12 +29,12 @@ useEffect(() => {
     };
   })();
 }, []);
-API.searchParams.page = page;
+
 useEffect(() => {
     (async () => {      
         try {           
             setIsLoading(true);
-            const {results} = await API.getTrends(API.searchParams);
+            const {results} = await API.getTrends(page);
             const newMovies = dataMovie(results, genres);
             const {...swipeData} = await API.getUpcoming();
             setSwipeMovies([...swipeData.results]);
@@ -75,4 +75,4 @@ return (
   );
 };
 
-export default Home;
+export default HomePage;

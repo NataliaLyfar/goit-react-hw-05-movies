@@ -9,7 +9,7 @@ import { MovieDetails } from 'components/MovieDetails';
 import { BackButton } from 'components/ui/buttons';
 
 
-const MovieInDetails = () => {
+const MovieInDetailsPage = () => {
 const { movieId } = useParams();
 const [movie, setMovie] =useState({});
 const [isLoading, setIsLoading] = useState(false);
@@ -49,4 +49,4 @@ return(
   );
 };
 
-export default MovieInDetails;
+export default MovieInDetailsPage;

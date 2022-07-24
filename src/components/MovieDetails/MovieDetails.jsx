@@ -1,10 +1,11 @@
 import { Suspense } from "react";
 import PropTypes from "prop-types";
 import styled from 'styled-components';
-import {NavLink, Outlet} from 'react-router-dom';
+import {Outlet} from 'react-router-dom';
 import { breakpoints } from 'styleConfig/breakpoints';
 import NoPoster from 'asset/comingSoon.jpg';
 import { StarRating } from './StarRating';
+import { ExtraMovieInfo } from "./ExtraMovieInfo";
 
 
 const Wrapper = styled.div`
@@ -86,29 +87,7 @@ font-weight: ${p => p.theme.fontWeights.normal};
 const Overview = styled.div`
 margin-top: ${p => p.theme.space[4]}px;
 `;
-const ListExtraData = styled.ul`
-display: flex;
-align-items: center;
-margin-top: ${p => p.theme.space[4]}px;
-`;
-const StyledLink = styled(NavLink)`
-padding: ${p => p.theme.space[3]}px;
-color: ${p => p.theme.colors.white};
-font-size: ${p => p.theme.fontSizes.l};
-font-weight: ${p => p.theme.fontWeights.bold};
-  @media (${breakpoints.tablet}) {
-    padding: ${p => p.theme.space[4]}px;
-    font-size: ${p => p.theme.fontSizes.xl};
-  };
-  &.active {
-    color: ${p => p.theme.colors.accent};
-    cursor: pointer;
-  };
-  &:hover:not(.active), &:focus:not(.active){
-    color: ${p => p.theme.colors.accent};
-    cursor: pointer;
-  };
-`;
+
 
 export const MovieDetails = ({
   id,
@@ -161,20 +140,7 @@ export const MovieDetails = ({
           </Overview>
         </Information>
       </Wrapper>
-      <ListExtraData>
-        <li>
-          <StyledLink to="cast" state={{from: location}}>Cast</StyledLink>
-        </li>
-        <li>
-          <StyledLink to="reviews" state={{from: location}}>Reviews</StyledLink>
-        </li>
-        <li>
-          <StyledLink to="trailer" state={{from: location}}>Trailer</StyledLink>
-        </li>
-        <li>
-          <StyledLink to="similar" state={{from: location}}>Similar</StyledLink>
-        </li>
-      </ListExtraData>
+      <ExtraMovieInfo location={location} />
       <Suspense>
         <Outlet />
       </Suspense>

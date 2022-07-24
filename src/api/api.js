@@ -8,7 +8,3 @@ export const customAxios = axios.create({
   },
 });
 
-export const searchParams = {
-  query: '',
-  page: 1,
-};

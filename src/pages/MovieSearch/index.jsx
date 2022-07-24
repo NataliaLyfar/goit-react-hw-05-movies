@@ -19,7 +19,7 @@ const TrailerWrapper = styled.div`
 margin-bottom: ${p => p.theme.space[3]}px;
 `;
 
-const MoviesSearch = () => {
+const MoviesSearchPage = () => {
 const [movies, setMovies] = useState([]);
 const [page, setPage] = useState(1);
 const [queryParam, setQueryParam] = useSearchParams({});
@@ -49,15 +49,13 @@ useEffect(() => {
     return;
   };
   (async () => {
-    API.searchParams.page = page;
-    API.searchParams.query = query;
     try {
         setIsLoading(true);
-        const {...response} = await API.getMovieBySearch(API.searchParams);
+        const {...response} = await API.getMovieBySearch(query, page);
         const { data } = response;
         const newMovies = dataMovie(data.results, genres);
           if(newMovies.length > 0){
-            if(API.searchParams.page === 1){
+            if(page === 1){
               setMovies([...newMovies]);
             } else {
               setMovies(prevState => [...prevState,...newMovies]);};
@@ -140,4 +138,4 @@ return (
   );
 };
 
-export default MoviesSearch;
+export default MoviesSearchPage;
