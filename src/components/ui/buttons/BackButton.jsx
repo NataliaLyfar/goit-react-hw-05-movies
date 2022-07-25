@@ -5,7 +5,7 @@ import { TiArrowBack } from "react-icons/ti";
 
 const Button = styled.button`
 display: inline-flex;
-margin: ${p => p.theme.space[1]}px 0;
+margin: -${p => p.theme.space[6]}px 0 ${p => p.theme.space[1]}px;
 border-radius: ${p => p.theme.radii.normal};
 background-color: transparent;
 transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);

@@ -3,6 +3,9 @@ import { Container } from "components/ui/Container";
 import { Navigation } from "./Navigation";
 
 const HeaderWrapper = styled.header`
+position: fixed;
+width: 100%;
+z-index: 100;
 display: flex;
 align-items: center;
 background: ${p => p.theme.colors.background};

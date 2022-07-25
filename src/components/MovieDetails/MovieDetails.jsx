@@ -21,12 +21,7 @@ box-shadow: 0px 0px 0px 0px #eead71, inset 0px 10px 27px -8px #141414,
 const Poster = styled.img`
 display: block;
 width: 100%;
-  @media (${breakpoints.tablet}) {
-    width: 340px;
-  };
-  @media (${breakpoints.laptop}) {
-    width: 400px;
-  };
+max-width: 340px;
 border-radius: ${p => p.theme.radii.normal};
 `;
 const Rating = styled.span`
@@ -152,7 +147,7 @@ MovieDetails.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string,
   tagline: PropTypes.string,
-  year: PropTypes.number,
+  year: PropTypes.any,
   overview: PropTypes.string,
   genres: PropTypes.string,
   posterPath: PropTypes.string,

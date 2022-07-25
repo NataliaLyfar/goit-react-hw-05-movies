@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const CardWrapper = styled.div`
 position: relative;
+height: 100%;
 border-radius: ${p => p.theme.radii.normal};
 transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
 background: transparent;
@@ -13,7 +14,7 @@ background: transparent;
 `;
 const Poster = styled.img`
 width: 100%;
-height: 440px;
+height: 405px;
 border-radius: ${p => p.theme.radii.normal};
 `;
 const MovieInfo = styled.div`

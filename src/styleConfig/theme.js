@@ -9,7 +9,7 @@ export const theme = {
       shadow: '#DFDAD0',
       accent: '#eead71',
     },
-    space: [5, 8, 12, 16, 20, 25, 32, 48, 64, 80, 128],
+    space: [5, 8, 12, 16, 20, 25, 32, 48, 64, 88, 98, 120],
     fonts: {
       body: 'Dancing Script, cursive',
       accent: 'Satisfy',

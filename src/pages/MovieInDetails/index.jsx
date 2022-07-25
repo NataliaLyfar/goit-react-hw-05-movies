@@ -7,6 +7,7 @@ import { getMovieDetails } from 'api';
 import { dataSelectedMovie } from 'utils/dataSelectedMovie';
 import { MovieDetails } from 'components/MovieDetails';
 import { BackButton } from 'components/ui/buttons';
+import { Section } from 'components/ui/Section';
 
 
 const MovieInDetailsPage = () => {
@@ -42,9 +43,11 @@ useEffect(() => {
     
 return(
   <Container>
-    {isLoading && <ThreeDots color="#eead71" height={60} width={60} />}
-    <BackButton onClick={onGoBack}/>
-    <MovieDetails {...movie} id={movieId} location={location}/>
+    <Section>
+      {isLoading && <ThreeDots color="#eead71" height={60} width={60} />}
+      <BackButton onClick={onGoBack}/>
+      <MovieDetails {...movie} id={movieId} location={location}/>
+    </Section>
   </Container>
   );
 };
