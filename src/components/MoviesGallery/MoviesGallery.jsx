@@ -9,7 +9,7 @@ display: grid;
 max-width: calc(100vw - 32px);
 grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
 grid-gap: ${p => p.theme.space[5]}px;
-margin: 0 auto;
+margin: 0 auto ${p => p.theme.space[4]}px;
 padding: 0;
 `;
 const Item = styled.li`

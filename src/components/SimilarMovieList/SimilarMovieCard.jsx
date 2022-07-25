@@ -4,6 +4,7 @@ import NoPoster from 'asset/comingSoon.jpg';
 
 const CardWrapper = styled.div`
 position: relative;
+height: 100%;
 border-radius: ${p => p.theme.radii.normal};
 transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
 background: transparent;
@@ -14,6 +15,7 @@ background: transparent;
 `;
 const Poster = styled.img`
 width: 250px;
+height: 375px;
 border-radius: ${p => p.theme.radii.normal};
 `;
 const Rating = styled.span`

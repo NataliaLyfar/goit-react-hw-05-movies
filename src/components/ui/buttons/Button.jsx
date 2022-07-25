@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import styled from "styled-components";
 
 const StyledButton = styled.button`
-margin: ${p => p.theme.space[4]}px auto 0;
+margin: 0 auto;
 padding: ${p => p.theme.space[1]}px ${p => p.theme.space[1]}px;
 border-radius: ${p => p.theme.radii.large};
 background: rgb(16,29,26);

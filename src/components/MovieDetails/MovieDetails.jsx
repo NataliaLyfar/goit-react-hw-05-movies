@@ -22,6 +22,7 @@ const Poster = styled.img`
 display: block;
 width: 100%;
 max-width: 340px;
+height: 510px;
 border-radius: ${p => p.theme.radii.normal};
 `;
 const Rating = styled.span`
